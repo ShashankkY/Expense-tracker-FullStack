@@ -1,10 +1,11 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const app = express();
-
-const db = require('./models');
+const { sequelize } = require('./models');
 const authRoutes = require('./routes/authRoutes');
+const expenseRoutes = require('./routes/expenseRoutes');
+
+const app = express();
 
 const PORT = 3000;
 
@@ -12,16 +13,18 @@ const PORT = 3000;
 app.use(cors());
 app.use(express.json());
 
-// ✅ Serve static files from "public"
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/expenses', expenseRoutes);
+
 
 // ✅ Force root URL to return login.html
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
-// Routes
-app.use('/api/auth', authRoutes);
 
 // DB Connection
 async function initializeDatabase() {

@@ -1,14 +1,8 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const sequelize = require('../config/db');
+const User = require('./User');
+const Expense = require('./Expense');
 
-const sequelize = new Sequelize('expense_db', 'root', 'Shashank@12', {
-  host: 'localhost',
-  dialect: 'mysql'
-});
+User.hasMany(Expense);
+Expense.belongsTo(User);
 
-const db = {};
-db.Sequelize = Sequelize;
-db.sequelize = sequelize;
-
-db.User = require('./user')(sequelize, DataTypes);
-
-module.exports = db;
+module.exports = { sequelize, User, Expense };

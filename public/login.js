@@ -20,7 +20,7 @@ document.getElementById('loginForm').addEventListener('submit', async function (
 
     alert('Login successful!');
     // Redirect to home or dashboard
-    window.location.href = 'dashboard.html';
+    window.location.href = 'expense.html';
   } catch (error) {
     errorMessage.textContent = 'Error: ' + error.message;
   }
