@@ -1,48 +1,165 @@
+/* Reset and base styling */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-      font-family: Arial, sans-serif;
-      margin: 40px;
-      background-color: #f5f5f5;
-    }
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #f8f9fa, #e8f5e9);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    .container {
-      background-color: white;
-      padding: 30px;
-      border-radius: 10px;
-      max-width: 400px;
-      margin: auto;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    }
+/* Card container */
+.container {
+  background-color: #ffffff;
+  padding: 40px 30px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  animation: fadeIn 0.6s ease-in-out;
+}
 
-    input[type="text"],
-    input[type="email"],
-    input[type="password"] {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      box-sizing: border-box;
-    }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-    button {
-      padding: 12px;
-      width: 100%;
-      background-color: #28a745;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+/* Heading & subtext */
+.container h2 {
+  color: #28a745;
+  margin-bottom: 10px;
+}
 
-    button:hover {
-      background-color: #218838;
-    }
+.container p {
+  color: #555;
+  margin-bottom: 25px;
+}
 
-    .error {
-      color: red;
-      margin-top: 10px;
-    }
+/* Form inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px 14px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
 
-    .link {
-      margin-top: 15px;
-      display: block;
-      text-align: center;
-    }
+input:focus {
+  outline: none;
+  border-color: #28a745;
+}
+
+/* Button */
+button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 12px;
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+/* Error message */
+.error {
+  color: #d93025;
+  margin-top: 12px;
+  font-size: 0.9em;
+}
+
+/* Bottom link */
+.link {
+  margin-top: 20px;
+  font-size: 0.9em;
+}
+
+.link a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.link a:hover {
+  text-decoration: underline;
+}
+/* Wrapper and header */
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  width: 100%;
+}
+
+.main-header {
+  text-align: center;
+  margin-bottom: 30px;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.main-header h1 {
+  font-size: 2.5rem;
+  color: #28a745;
+  margin-bottom: 10px;
+}
+
+.main-header p {
+  font-size: 1.1rem;
+  color: #444;
+}
+
+/* Stylized link button for Login in signup box */
+.secondary-button {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 10px 16px;
+  background-color: #28a745;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.secondary-button:hover {
+  background-color: #218838;
+}
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-wrapper input {
+  padding-right: 40px;
+}
+
+.toggle-icon {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: #888;
+  user-select: none;
+}
+
+.toggle-icon:hover {
+  color: #28a745;
+}
