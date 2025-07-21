@@ -1,38 +1,36 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const { sequelize } = require('./models');
+
+const sequelize = require('./config/db'); // ✅ Import Sequelize instance
+const { Users, Expense } = require('./models'); // ✅ If you need models
 const authRoutes = require('./routes/authRoutes');
 const expenseRoutes = require('./routes/expenseRoutes');
 
 const app = express();
-
 const PORT = 3000;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
-
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/expenses', expenseRoutes);
 
-
-// ✅ Force root URL to return login.html
+// Serve login page at root
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
-
-// DB Connection
+// ✅ DB Initialization
 async function initializeDatabase() {
   try {
-    await db.sequelize.authenticate();
+    await sequelize.authenticate();
     console.log('✅ Database connected.');
 
-    await db.sequelize.sync({ force: false });
+    await sequelize.sync({ force: false });
     console.log('✅ Models synced.');
 
     app.listen(PORT, () => {

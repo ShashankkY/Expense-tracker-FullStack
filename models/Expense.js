@@ -13,7 +13,11 @@ const Expense = sequelize.define("Expense", {
   category: {
     type: DataTypes.STRING,
     allowNull: false
-  }
+  },
+  UserId: {
+  type: DataTypes.INTEGER,
+  allowNull: false
+}
 });
 
 module.exports = Expense;

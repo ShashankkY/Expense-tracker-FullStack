@@ -163,3 +163,118 @@ button:hover {
 .toggle-icon:hover {
   color: #28a745;
 }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f0f2f5;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background-color: #28a745;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+}
+
+.header h1 {
+  margin: 0;
+}
+
+#logoutBtn {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  padding: 8px 14px;
+  background-color: white;
+  color: #28a745;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#logoutBtn:hover {
+  background-color: #e8f5e9;
+}
+
+.dashboard {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 30px;
+  gap: 20px;
+}
+
+.form-section, .list-section {
+  background-color: #ffffff;
+  padding: 20px 25px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.form-section h2, .list-section h2 {
+  margin-bottom: 16px;
+  color: #28a745;
+}
+
+form input, form select, form button {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+form button {
+  background-color: #28a745;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #218838;
+}
+
+ul#expenseList {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.expense-item {
+  background-color: #f8f9fa;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #c82333;
+}

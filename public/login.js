@@ -18,17 +18,21 @@ document.getElementById('loginForm').addEventListener('submit', async function (
       throw new Error(data.message || 'Login failed');
     }
 
+    // ✅ Save the JWT token so expense.js can use it
+    localStorage.setItem("token", data.token);
+
     alert('Login successful!');
-    // Redirect to home or dashboard
-    window.location.href = 'expense.html';
+    window.location.href = 'expense.html'; // Redirect to protected page
   } catch (error) {
     errorMessage.textContent = 'Error: ' + error.message;
   }
 });
+
+// 👁️ Password toggle
 document.getElementById('togglePassword').addEventListener('click', function () {
   const passwordInput = document.getElementById('password');
   const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
   passwordInput.setAttribute('type', type);
-    this.classList.toggle('fa-eye');
-    this.classList.toggle('fa-eye-slash');
+  this.classList.toggle('fa-eye');
+  this.classList.toggle('fa-eye-slash');
 });

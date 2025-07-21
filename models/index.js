@@ -1,8 +1,8 @@
 const sequelize = require('../config/db');
-const User = require('./User');
+const Users = require('./Users');
 const Expense = require('./Expense');
 
-User.hasMany(Expense);
-Expense.belongsTo(User);
+Users.hasMany(Expense,{ onDelete: 'CASCADE' });
+Expense.belongsTo(Users);
 
-module.exports = { sequelize, User, Expense };
+module.exports = { sequelize, Users, Expense };
