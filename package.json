@@ -18,7 +18,9 @@
   "homepage": "https://github.com/ShashankkY/Expense-tracker-FullStack#readme",
   "description": "",
   "dependencies": {
+    "@cashfreepayments/cashfree-js": "^1.0.5",
     "bcrypt": "^6.0.0",
+    "cashfree-pg": "^5.0.8",
     "cors": "^2.8.5",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",

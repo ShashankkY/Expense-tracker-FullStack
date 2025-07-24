@@ -9,6 +9,7 @@
   <header class="header">
     <h1>💰 Expense Dashboard</h1>
     <button id="logoutBtn">Logout</button>
+    <div id="premiumStatus" class="status-text"></div>
   </header>
 
   <main class="dashboard">
@@ -23,6 +24,8 @@
           <option value="Petrol">Petrol</option>
           <option value="Salary">Salary</option>
           <option value="Travel">Travel</option>
+          <option value="Education">Education</option>
+          <option value="Bills">Bills</option>
           <option value="Other">Other</option>
         </select>
         <button type="submit">➕ Add Expense</button>
@@ -32,9 +35,14 @@
     <section class="list-section">
       <h2>Your Expenses</h2>
       <ul id="expenseList"></ul>
+      <div id="totalExpense" class="total-box">Total: ₹0</div>
+
+      <!-- 💎 Glossy Premium Button -->
+      <button id="buyPremiumBtn" class="glossy-btn">💎 Buy Premium</button>
     </section>
   </main>
 
-  <script src="expense.js"></script>
+  <script src="js/cf.js" defer></script>
+  <script src="js/expense.js" defer></script>
 </body>
 </html>

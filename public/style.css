@@ -1,4 +1,4 @@
-/* Reset and base styling */
+/* Reset */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -7,15 +7,22 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to right, #f8f9fa, #e8f5e9);
+  background: #f0f2f5;
   min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-/* Card container */
-.container {
+/* ---------- Login & Signup Layout ---------- */
+
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.auth-box {
   background-color: #ffffff;
   padding: 40px 30px;
   border-radius: 12px;
@@ -23,29 +30,16 @@ body {
   max-width: 400px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   text-align: center;
-  animation: fadeIn 0.6s ease-in-out;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Heading & subtext */
-.container h2 {
+.auth-box h2 {
   color: #28a745;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
-.container p {
-  color: #555;
-  margin-bottom: 25px;
-}
-
-/* Form inputs */
-input[type="text"],
-input[type="email"],
-input[type="password"] {
+.auth-box input[type="text"],
+.auth-box input[type="email"],
+.auth-box input[type="password"] {
   width: 100%;
   padding: 12px 14px;
   margin: 10px 0;
@@ -54,92 +48,24 @@ input[type="password"] {
   transition: border-color 0.3s ease;
 }
 
-input:focus {
+.auth-box input:focus {
   outline: none;
   border-color: #28a745;
 }
 
-/* Button */
-button {
-  background-color: #28a745;
-  color: white;
-  border: none;
-  padding: 12px;
-  width: 100%;
-  margin-top: 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
+.link {
+  margin-top: 20px;
+  font-size: 0.9em;
 }
 
-button:hover {
-  background-color: #218838;
-}
 
-/* Error message */
 .error {
   color: #d93025;
   margin-top: 12px;
   font-size: 0.9em;
 }
 
-/* Bottom link */
-.link {
-  margin-top: 20px;
-  font-size: 0.9em;
-}
-
-.link a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-.link a:hover {
-  text-decoration: underline;
-}
-/* Wrapper and header */
-.page-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px 20px;
-  width: 100%;
-}
-
-.main-header {
-  text-align: center;
-  margin-bottom: 30px;
-  animation: fadeIn 0.8s ease-in-out;
-}
-
-.main-header h1 {
-  font-size: 2.5rem;
-  color: #28a745;
-  margin-bottom: 10px;
-}
-
-.main-header p {
-  font-size: 1.1rem;
-  color: #444;
-}
-
-/* Stylized link button for Login in signup box */
-.secondary-button {
-  display: inline-block;
-  margin-top: 12px;
-  padding: 10px 16px;
-  background-color: #28a745;
-  color: white;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-}
-
-.secondary-button:hover {
-  background-color: #218838;
-}
+/* Password visibility toggle */
 .password-wrapper {
   position: relative;
   width: 100%;
@@ -163,41 +89,91 @@ button:hover {
 .toggle-icon:hover {
   color: #28a745;
 }
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f0f2f5;
-  color: #333;
-  min-height: 100vh;
+/* ---------------- Centered Logo Block ---------------- */
+.logo-block {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #28a745;
+  border: 2px solid #828c84;
+  border-radius: 12px;
+  padding: 25px 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
+
+.logo-block h1 {
+  font-size: 2rem;
+  color: #ffffff;
+  margin-bottom: 6px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.logo-block p {
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+/* ---------------- Auth Form Button Styling ---------------- */
+.auth-box button {
+  background: linear-gradient(to right, #28a745, #218838);
+  color: white;
+  font-weight: bold;
+  padding: 12px;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.auth-box button:hover {
+  background: linear-gradient(to right, #218838, #1e7e34);
+  transform: translateY(-2px);
+}
+
+/* ---------------- Link Button (Signup / Login switch) ---------------- */
+.link a {
+  font-weight: bold;
+  color: #28a745;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.link a:hover {
+  color: #1e7e34;
+  text-decoration: underline;
+}
+
+
+/* ---------- Dashboard Layout ---------- */
 
 .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background-color: #28a745;
   color: white;
-  padding: 20px;
-  text-align: center;
-  position: relative;
+  padding: 20px 30px;
 }
 
+
+
 .header h1 {
-  margin: 0;
+  font-size: 1.8rem;
 }
 
 #logoutBtn {
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  padding: 8px 14px;
   background-color: white;
   color: #28a745;
   border: none;
+  padding: 8px 16px;
   border-radius: 6px;
   font-weight: bold;
   cursor: pointer;
@@ -210,27 +186,44 @@ body {
 
 .dashboard {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: flex-start;
   flex-wrap: wrap;
-  padding: 30px;
   gap: 20px;
+  padding: 30px;
 }
 
-.form-section, .list-section {
+.form-section {
   background-color: #ffffff;
   padding: 20px 25px;
   border-radius: 12px;
   width: 100%;
   max-width: 450px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0; /* Prevent shrinking */
 }
 
-.form-section h2, .list-section h2 {
+.list-section {
+  background-color: #ffffff;
+  padding: 20px 25px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  flex-grow: 1; /* Allow this section to grow */
+  overflow-y: auto; /* Optional: scroll if needed */
+}
+
+
+.form-section h2,
+.list-section h2 {
   margin-bottom: 16px;
   color: #28a745;
 }
 
-form input, form select, form button {
+form input,
+form select,
+form button {
   width: 100%;
   margin-bottom: 12px;
   padding: 10px;
@@ -256,25 +249,163 @@ ul#expenseList {
   margin-top: 10px;
 }
 
+.edit-btn {
+  background-color: #ffc107;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  margin-left: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+/* Expense Item Card Style */
 .expense-item {
-  background-color: #f8f9fa;
-  padding: 12px 14px;
-  margin-bottom: 10px;
-  border-radius: 6px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+}
+
+.expense-item:hover {
+  transform: scale(1.01);
+}
+
+.expense-detail {
+  flex: 1;
+  font-size: 1rem;
+  color: #333;
+}
+
+.expense-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-btn {
+  background-color: #ffc107;
+  color: #212529;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.edit-btn:hover {
+  background-color: #e0a800;
 }
 
 .delete-btn {
   background-color: #dc3545;
   color: white;
   border: none;
-  padding: 6px 10px;
-  border-radius: 4px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 500;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .delete-btn:hover {
   background-color: #c82333;
+}
+
+/* Total Expense Box */
+.total-box {
+  background-color: #ffffff;
+  color: #28a745;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 20px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-align: right;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+}
+#totalExpense {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #28a745;
+  transition: opacity 0.3s ease;
+}
+
+.glossy-btn {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 20px auto 0;
+  background: linear-gradient(135deg, #ffa726, #fb8c00);
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(255, 152, 0, 0.3);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.glossy-btn:hover {
+  background: linear-gradient(135deg, #ffb74d, #ff9800);
+  transform: scale(1.03);
+}
+
+-------#success#-------------------
+.success-container {
+  text-align: center;
+  margin-top: 100px;
+  font-family: sans-serif;
+}
+
+.success-container h1 {
+  font-size: 2rem;
+  color: #28a745;
+}
+
+.success-container p {
+  font-size: 1.2rem;
+  margin: 20px 0;
+}
+
+.success-btn {
+  background-color: #28a745;
+  color: white;
+  text-decoration: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.success-btn:hover {
+  background-color: #218838;
+}
+
+#premiumBanner {
+  display: none;
+  text-align: center;
+  padding: 16px;
+  background: linear-gradient(90deg, gold, orange);
+  font-weight: bold;
+  color: #333;
+  border-radius: 8px;
+  margin: 10px auto;
+  max-width: 500px;
+}
+
+#premiumBanner.visible {
+  display: block;
 }
