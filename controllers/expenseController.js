@@ -1,10 +1,13 @@
 const { Expense } = require("../models");
+const updateUserTotalExpense = require('../utils/updateTotalExpense');
+
 
 exports.getExpenses = async (req, res) => {
   try {
     const expenses = await Expense.findAll({
       where: { UserId: req.user.id }
     });
+    await updateUserTotalExpense(req.user.id);
     res.json(expenses);
   } catch (err) {
     console.error("Error fetching expenses:", err);
@@ -26,6 +29,7 @@ exports.addExpense = async (req, res) => {
       category,
       UserId: req.user.id
     });
+    await updateUserTotalExpense(req.user.id);
 
     res.status(201).json(newExpense);
   } catch (err) {
@@ -43,6 +47,7 @@ exports.updateExpense = async (req, res) => {
       { amount, description, category },
       { where: { id: expenseId, UserId: req.user.id } }
     );
+    await updateUserTotalExpense(req.user.id);
 
     if (updated === 0) {
       return res.status(404).json({ message: "Expense not found or unauthorized" });
@@ -61,6 +66,7 @@ exports.deleteExpense = async (req, res) => {
     const deleted = await Expense.destroy({
       where: { id: req.params.id, UserId: req.user.id }
     });
+    await updateUserTotalExpense(req.user.id);
 
     if (deleted === 0) {
       return res.status(404).json({ message: "Expense not found or unauthorized" });

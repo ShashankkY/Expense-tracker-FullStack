@@ -6,14 +6,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const logoutBtn = document.getElementById("logoutBtn");
-  const form = document.getElementById("expenseForm");
+  const premiumStatus = document.getElementById("premiumStatus");
   const list = document.getElementById("expenseList");
+  const form = document.getElementById("expenseForm");
   const amountInput = document.getElementById("amount");
   const descInput = document.getElementById("description");
   const catInput = document.getElementById("category");
-  const buyBtn = document.getElementById("buyPremiumBtn");
-  const premiumStatus = document.getElementById("premiumStatus");
-  const premiumBanner = document.getElementById("premiumBanner");
+
+  let editingExpenseId = null;
 
   if (logoutBtn) {
     logoutBtn.addEventListener("click", () => {
@@ -22,7 +22,64 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  let editingExpenseId = null;
+  async function verifyPremiumStatus() {
+    try {
+      const res = await fetch("http://localhost:3000/api/auth/profile", {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const data = await res.json();
+
+      if (data.isPremium) {
+        premiumStatus.innerHTML = `<span class="crown">👑</span> Premium User`;
+        fetchExpenses();
+        loadLeaderboard();
+      } else {
+        alert("You're not a premium user. Redirecting...");
+        window.location.href = "expense.html";
+      }
+    } catch (err) {
+      console.error("Profile check failed:", err);
+      window.location.href = "login.html";
+    }
+  }
+
+  async function loadLeaderboard() {
+    try {
+      const res = await fetch("http://localhost:3000/api/premium/leaderboard", {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const users = await res.json();
+      const list = document.getElementById("leaderboardList");
+      list.innerHTML = "";
+
+      users.forEach((user, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `<strong>${index + 1}. ${user.name}</strong> - ₹${user.totalExpense || 0}`;
+        list.appendChild(li);
+      });
+    } catch (err) {
+      console.error("Leaderboard error:", err);
+    }
+  }
+
+  async function fetchExpenses() {
+    try {
+      const res = await fetch("http://localhost:3000/api/expenses", {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      const data = await res.json();
+      console.log("Fetched expense data:", data);
+
+      if (!Array.isArray(data)) throw new Error("Invalid data format");
+
+      list.innerHTML = "";
+      data.forEach(exp => addExpenseToDOM(exp));
+      updateTotal();
+    } catch (err) {
+      console.error("Fetch expenses error:", err);
+    }
+  }
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -68,29 +125,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
       form.reset();
       updateTotal();
+      loadLeaderboard();
     } catch (err) {
       console.error("Error saving expense:", err);
     }
   });
 
-  async function fetchExpenses() {
-    try {
-      const res = await fetch("http://localhost:3000/api/expenses", {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-
-      const data = await res.json();
-      if (!Array.isArray(data)) throw new Error("Invalid data format from server");
-
-      list.innerHTML = "";
-      data.forEach(exp => addExpenseToDOM(exp));
-      updateTotal();
-    } catch (err) {
-      console.error("Error fetching expenses:", err);
-    }
-  }
-
   function addExpenseToDOM(expense) {
+    console.log("Expense received:", expense);
+
     const existing = document.getElementById(`expense-${expense.id}`);
     if (existing) existing.remove();
 
@@ -98,16 +141,20 @@ document.addEventListener("DOMContentLoaded", () => {
     li.className = "expense-item";
     li.id = `expense-${expense.id}`;
 
+    const amount = expense?.amount ?? 0;
+    const category = expense?.category ?? "N/A";
+    const description = expense?.description ?? "N/A";
+
     const span = document.createElement("span");
-    span.textContent = `${expense.amount} ₹ - ${expense.category} - ${expense.description}`;
+    span.textContent = `${amount} ₹ - ${category} - ${description}`;
 
     const editBtn = document.createElement("button");
     editBtn.textContent = "✏️ Edit";
     editBtn.className = "edit-btn";
     editBtn.onclick = () => {
-      amountInput.value = expense.amount;
-      descInput.value = expense.description;
-      catInput.value = expense.category;
+      amountInput.value = amount;
+      descInput.value = description;
+      catInput.value = category;
       editingExpenseId = expense.id;
     };
 
@@ -122,8 +169,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         li.remove();
         updateTotal();
+        loadLeaderboard();
       } catch (err) {
-        console.error("Delete Error:", err);
+        console.error("Delete error:", err);
       }
     };
 
@@ -164,45 +212,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // ✅ Handle Premium Upgrade (no Cashfree)
-  if (buyBtn) {
-    buyBtn.addEventListener("click", async () => {
-      try {
-        const res = await fetch("http://localhost:3000/api/auth/upgrade", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json"
-          }
-        });
-
-        if (!res.ok) throw new Error("Failed to upgrade");
-
-        // Redirect to confirmation
-        window.location.href = "premium.html";
-      } catch (err) {
-        console.error("Upgrade failed:", err);
-        alert("Something went wrong. Try again.");
-      }
-    });
-  }
-
-  async function checkPremiumStatus() {
-    try {
-      const res = await fetch("http://localhost:3000/api/auth/profile", {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-
-      const data = await res.json();
-      if (data.isPremium) {
-        premiumStatus.textContent = "👑 Premium";
-        premiumBanner?.classList.add("visible");
-        if (buyBtn) buyBtn.style.display = "none";
-      }
-    } catch (err) {
-      console.error("Premium status fetch failed", err);
-    }
-  }
-  fetchExpenses();
-  checkPremiumStatus();
+  verifyPremiumStatus();
 });

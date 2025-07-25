@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Premium Expense Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header premium-header">
+    <div class="header-left">
+      <h1>💰 Expense Dashboard</h1>
+      <div id="premiumStatus" class="status-text">🌟 Premium</div>
+    </div>
+    <button id="logoutBtn" class="premium-logout">Logout</button>
+  </header>
+
+  <main class="dashboard">
+    <section class="form-section premium-section">
+      <h2 class="premium-heading">Add New Expense</h2>
+      <form id="expenseForm">
+        <input type="number" id="amount" placeholder="Amount" required />
+        <input type="text" id="description" placeholder="Description" required />
+        <select id="category" required>
+          <option value="" disabled selected>Select category</option>
+          <option value="Food">Food</option>
+          <option value="Petrol">Petrol</option>
+          <option value="Salary">Salary</option>
+          <option value="Travel">Travel</option>
+          <option value="Education">Education</option>
+          <option value="Bills">Bills</option>
+          <option value="Other">Other</option>
+        </select>
+        <button type="submit" class="premium-button">➕ Add Expense</button>
+      </form>
+    </section>
+
+    <section class="list-section premium-section">
+      <h2 class="premium-heading">Your Expenses</h2>
+      <ul id="expenseList"></ul>
+      <div id="totalExpense" class="total-box premium-total">Total: ₹0</div>
+
+      <!-- Replaced Buy Button with Active Status -->
+      <button id="buyPremiumBtn" class="glossy-btn" disabled style="cursor: default; background: linear-gradient(135deg, gold, orange); color: black; box-shadow: 0 0 12px gold;">
+        Premium Activated
+      </button>
+      <section class="leaderboard-section">
+    <h2>🏆 Leaderboard</h2>
+    <ul id="leaderboardList"></ul>
+        </section>
+    </section>
+  </main>
+
+  <script src="js/premium.js" defer></script>
+</body>
+</html>

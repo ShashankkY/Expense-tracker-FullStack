@@ -6,6 +6,7 @@ const db = require('./models'); // ✅ Centralized models + sequelize
 const authRoutes = require('./routes/authRoutes');
 const expenseRoutes = require('./routes/expenseRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
+const premiumRoutes = require('./routes/premiumRoutes');
 
 const app = express();
 const PORT = 3000;
@@ -19,6 +20,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/auth', authRoutes);
 app.use('/api/expenses', expenseRoutes);
 app.use('/api/payment', paymentRoutes);
+app.use('/api/premium', premiumRoutes);
 
 // Serve login page at root
 app.get('/', (req, res) => {
@@ -26,6 +28,9 @@ app.get('/', (req, res) => {
 });
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'paymentsuccess.html'));
+});
+app.get('/premium.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'premium.html'));
 });
 
 // ✅ DB Initialization

@@ -21,8 +21,23 @@ document.getElementById('loginForm').addEventListener('submit', async function (
     // ✅ Save the JWT token so expense.js can use it
     localStorage.setItem("token", data.token);
 
-    alert('Login successful!');
-    window.location.href = 'expense.html'; // Redirect to protected page
+    // 🔄 Fetch premium status
+    const profileRes = await fetch('http://localhost:3000/api/auth/profile', {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + data.token
+      }
+    });
+
+    const profileData = await profileRes.json();
+
+    // 🚀 Redirect based on premium status
+    if (profileData.isPremium) {
+      window.location.href = 'premium.html';
+    } else {
+      window.location.href = 'expense.html';
+    }
+  // Redirect to protected page
   } catch (error) {
     errorMessage.textContent = 'Error: ' + error.message;
   }
